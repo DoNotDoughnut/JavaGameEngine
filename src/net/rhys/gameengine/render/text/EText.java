@@ -1,4 +1,4 @@
-package net.rhys.gameengine.render;
+package net.rhys.gameengine.render.text;
 
 import java.awt.Color;
 import java.awt.Font;

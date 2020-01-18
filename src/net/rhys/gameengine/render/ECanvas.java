@@ -9,6 +9,7 @@ import java.awt.image.DataBufferInt;
 
 import net.rhys.gameengine.input.EKeyInput;
 import net.rhys.gameengine.input.EMouseInput;
+import net.rhys.gameengine.render.text.EText;
 
 public class ECanvas extends Canvas {
 	
