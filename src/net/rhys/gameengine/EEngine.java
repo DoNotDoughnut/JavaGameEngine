@@ -3,6 +3,7 @@ package net.rhys.gameengine;
 import net.rhys.gameengine.input.EKeyInput;
 import net.rhys.gameengine.input.EMouseInput;
 import net.rhys.gameengine.render.ECanvas;
+import net.rhys.gameengine.render.EFonts;
 import net.rhys.gameengine.render.ERenderer;
 import net.rhys.gameengine.render.EWindow;
 
@@ -38,6 +39,8 @@ public class EEngine implements Runnable {
 		this.width = width;
 		this.height = height;
 		this.scale = scale;
+		
+		new EFonts(scale);
 		
 		graphics = new ERenderer(width, height, scale); // Establishes game renderer
 		keyInput = new EKeyInput();
