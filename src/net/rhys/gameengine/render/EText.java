@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.util.ArrayList;
 
-public class EText{
+public class EText {
 
 	public int x, y;
 	public String text;
