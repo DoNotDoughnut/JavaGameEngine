@@ -2,9 +2,11 @@ package net.rhys.gameengine;
 
 import net.rhys.gameengine.input.EKeyInput;
 import net.rhys.gameengine.input.EMouseInput;
-import net.rhys.gameengine.render.ECanvas;
-import net.rhys.gameengine.render.ERenderer;
-import net.rhys.gameengine.render.EWindow;
+import net.rhys.gameengine.level.ELevel;
+import net.rhys.gameengine.rendering.ECanvas;
+import net.rhys.gameengine.rendering.ERenderer;
+import net.rhys.gameengine.rendering.EWindow;
+import net.rhys.gameengine.rendering.text.EFont;
 
 /**
 * The EEngine program is a library meant to help
@@ -16,28 +18,44 @@ import net.rhys.gameengine.render.EWindow;
 */
 public class EEngine implements Runnable {
 	
-	private boolean running = false;
-	private Thread thread;
+	/*
+	 *  Monogram is a font created by Vinícius Menézio.
+	 *  
+	 *  Check their work out at menez.io
+	 *  
+	 *  Font is licensed under CC0 1.0 licensing.
+	 */
+	
+	public static EFont monogram;
+	
+	public static String resources;
 
 	public final String title;
-	public static final String resources = "/res/";
+	
 	public final int width, height, scale;
 	
 	public ERenderer graphics;
 	public EWindow window;
+	public ECanvas canvas;
+	
 	public EKeyInput keyInput;
 	public EMouseInput mouseInput;
-	public ECanvas canvas;
 
+	public ELevel currentLevel;
+	
 	public static int UPS, FPS;
-	public static long timer = System.currentTimeMillis();
+	//public static long timer = System.currentTimeMillis();
 
-	public EEngine(String title, int width, int height, int scale) {
+	public EEngine(String title, int width, int height, int scale, String resources) {
 
 		this.title = title;
 		this.width = width;
 		this.height = height;
 		this.scale = scale;
+		
+		EEngine.resources = resources;
+		
+		monogram = new EFont("datagoblin/monogram.ttf", scale);
 		
 		graphics = new ERenderer(width, height, scale); // Establishes game renderer
 		keyInput = new EKeyInput();
@@ -49,7 +67,7 @@ public class EEngine implements Runnable {
 	public void run() {
 		long lastTime = System.nanoTime();
 		long timer = System.currentTimeMillis();
-		final double updateEvery = 1000000000.0 / 60.0; // 1 billion / 60 (more accurate than milliseconds)
+		final double updateEvery = 1000000000.0 / 60.0; // 1 billion / 10 (more accurate than milliseconds)
 		double delta = 0;
 
 		window.setVisible(true);
@@ -79,28 +97,25 @@ public class EEngine implements Runnable {
 		end();
 	}
 	
-	public void render() {
-		
-	}
+	public void input() {}
+	
+	public void update() {}
+	
+	public void render() {}	
 
-	public void input() {
-		
-	}
-
-	public void update() {
-		
-	}
-
-	public void end() {
-		
-	}
-
-	public synchronized void start() { // See below
+	public void end() {}
+	
+	
+	
+	private boolean running = false;
+	private Thread thread;
+	
+	public synchronized void start() { // Start the application thread. Calls run() method;
 
 		running = true;
 		thread = new Thread(this, title);
 
-		thread.start(); // Start the application thread. I think this calls run();
+		thread.start();
 	}
 
 	public synchronized void stop() { // When exit call is given, stop run(); and close the thread.

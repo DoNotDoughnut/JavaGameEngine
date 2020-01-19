@@ -1,4 +1,4 @@
-package net.rhys.gameengine.render;
+package net.rhys.gameengine.rendering;
 
 import javax.swing.JFrame;
 

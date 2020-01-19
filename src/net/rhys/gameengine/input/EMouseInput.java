@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import net.rhys.gameengine.render.ERenderer;
+import net.rhys.gameengine.rendering.ERenderer;
 
 public class EMouseInput implements MouseListener, MouseMotionListener {
 

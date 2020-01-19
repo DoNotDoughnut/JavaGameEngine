@@ -1,4 +1,4 @@
-package net.rhys.gameengine.render;
+package net.rhys.gameengine.rendering;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
@@ -9,7 +9,7 @@ import java.awt.image.DataBufferInt;
 
 import net.rhys.gameengine.input.EKeyInput;
 import net.rhys.gameengine.input.EMouseInput;
-import net.rhys.gameengine.render.text.EText;
+import net.rhys.gameengine.rendering.text.EText;
 
 public class ECanvas extends Canvas {
 	

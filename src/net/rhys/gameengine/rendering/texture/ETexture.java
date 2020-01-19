@@ -1,4 +1,4 @@
-package net.rhys.gameengine.texture;
+package net.rhys.gameengine.rendering.texture;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +9,6 @@ public class ETexture {
 	private int x,y, idleTime;
 	public int[] pixels;
 	private ETextureSheet sheet;
-	private boolean defaultScan, animated;
 	
 	public static final int defaultSize = 16;
 	
@@ -32,17 +31,15 @@ public class ETexture {
 		}
 	}
 	
-	public ETexture(ETextureSheet sheet, int x, int y,  int width, int height, int totalSprites, boolean defaultScan, boolean animated, int idleTime) {
+	public ETexture(ETextureSheet sheet, int x, int y, int totalSprites, int idleTime) {
 		this.sheet=sheet;
 		this.x=x;
 		this.y=y;
-		this.width=width;
-		this.height=width;
+		this.width=sheet.spriteWidth;
+		this.height=sheet.spriteHeight;
 		this.totalSprites=totalSprites;
 		pixels = new int[width*height];
-		this.defaultScan=defaultScan;
-		this.animated=animated;
-		if(this.animated)
+		if(idleTime!=0)
 			animatedSprites.add(this);
 		this.idleTime=idleTime;
 		
@@ -55,12 +52,20 @@ public class ETexture {
 				pixels[x+y*width] = sheet.pixels[(x+inX*width)+(y+inY*height)*sheet.width];
 	}
 	
-	public ETexture(ETextureSheet sheet, int x, int y, int size, int totalSprites) {
-		this(sheet, x, y, size, size, totalSprites, true, false, 0);
+	public ETexture(ETextureSheet sheet, int x, int y, int totalSprites) {
+		this(sheet, x, y, totalSprites, 0);
 	}
 	
-	public ETexture(ETextureSheet sheet, int x, int y, int totalSprites) {
-		this(sheet, x, y, defaultSize, defaultSize, totalSprites, true, false, 0);
+	public ETexture(ETextureSheet sheet, int x, int y) {
+		this(sheet, x, y, 1);
+	}
+	
+	public ETexture(ETextureSheet sheet) {
+		this(sheet, 0, 0);
+	}
+	
+	public ETexture(ETextureSheet sheet, int totalSprites) {
+		this(sheet, 0, 0, totalSprites);
 	}
 	
 	public ETexture(int color, int width, int height) {
@@ -75,27 +80,20 @@ public class ETexture {
 		this(color, defaultSize, defaultSize);
 	}
 	
-	public void setVariant(int variant, boolean onX) {
-		if(variant>totalSprites) throw new NullPointerException("This sprite does not have this many variations! "+variant+" variations were entered and "+totalSprites+" is the total available.");
-		if(onX)
-			load(x+(variant-1),y);
-		else
-			load(x,y+(variant-1));
-	}
-	
 	public void setVariant(int variant) {
-		setVariant(variant, defaultScan);
-	}
-	
-	public boolean scansOnX() {
-		return defaultScan;
+		if(variant>totalSprites) 
+			throw new NullPointerException("This sprite does not have this many variations! "+variant+" variations were entered and "+totalSprites+" is the total available.");
+		//if(onX)
+			load(x+(variant-1),y);
+		//else
+		//	load(x,y+(variant-1));
 	}
 	
 	public ETexture getVariant(int variant) {
-		if(defaultScan)
-			return new ETexture(sheet, x+(variant-1), y, width, height, 1, defaultScan, animated, idleTime);
-		else
-			return new ETexture(sheet, x, y+(variant-1), width, height, 1, defaultScan, animated, idleTime);
+		//if(defaultScan)
+			return new ETexture(sheet, x+(variant-1), y, 1, idleTime);
+		//else
+		//	return new ETexture(sheet, x, y+(variant-1), width, height, 1, defaultScan, animated, idleTime);
 	}
 
 }

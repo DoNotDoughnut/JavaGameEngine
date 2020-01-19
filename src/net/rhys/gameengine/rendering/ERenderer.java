@@ -1,8 +1,8 @@
-package net.rhys.gameengine.render;
+package net.rhys.gameengine.rendering;
 
 import java.util.Arrays;
 
-import net.rhys.gameengine.texture.ETexture;
+import net.rhys.gameengine.rendering.texture.ETexture;
 
 public class ERenderer {
 

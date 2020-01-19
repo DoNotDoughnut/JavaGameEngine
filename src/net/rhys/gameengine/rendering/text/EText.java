@@ -1,10 +1,8 @@
-package net.rhys.gameengine.render.text;
+package net.rhys.gameengine.rendering.text;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.util.ArrayList;
 
 public class EText {
@@ -39,19 +37,13 @@ public class EText {
 	}
 
 	public static void render(Graphics graphics) {
-		
-		Graphics2D g = (Graphics2D) graphics;
-		
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		
-		for(EText text : texts)
+		for(EText text : texts) {
 			if(text!=null) {
-				
-			g.setFont(text.font);
-			g.setColor(text.color);
-			g.drawString(text.text, text.x, text.y);
-			
+				graphics.setFont(text.font);
+				graphics.setColor(text.color);
+				graphics.drawString(text.text, text.x, text.y);
 			}
+		}
 	}
 	
 }
